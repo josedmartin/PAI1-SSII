@@ -2,7 +2,7 @@ import hashlib, datetime, os
 
 #Ver todos los archivos de una carpeta y los convierte a hash en otro fichero
 
-directorio_ejemplo = '/Users/Pablo/Desktop/UNIVERSIDAD/PAI/PAI1/Carpeta_Para_Hashear'
+directorio_ejemplo = './Carpeta_Para_Hashear'
 lista=[]
 def main():
     directorio_listado=os.listdir(directorio_ejemplo)
