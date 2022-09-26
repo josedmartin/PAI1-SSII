@@ -8,7 +8,7 @@ with open("Config.config") as configfile:
 
 lista=[]
 directorio_elegido = directorio.replace("directorio=","")
-sha_elegido=sha.replace("sha=","")
+sha_elegido=sha.replace("hash=","")
 
 #fecha_actual=datetime.now()
 #hora_reiniciar=fecha_actual.strftime("%H")
@@ -19,6 +19,7 @@ def main():
         dic={"sha224":hashlib.sha224(archivo.encode('utf-8')).hexdigest(),
         "sha256":hashlib.sha256(archivo.encode('utf-8')).hexdigest(),
         "sha384":hashlib.sha384(archivo.encode('utf-8')).hexdigest()}
+        print(dic)
         hash_value=dic[sha_elegido]
         lista.append(hash_value)
     
