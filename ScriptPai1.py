@@ -2,21 +2,24 @@ import hashlib,  os
 from datetime import datetime
 #Ver todos los archivos de una carpeta y los convierte a hash en otro fichero
 
-
 with open("Config.config") as configfile:
     directorio=configfile.readline().rstrip()
-print(directorio)
+    sha=configfile.readlines()[0].rstrip()
 
 lista=[]
-directorio_ejemplo = directorio.replace("directorio=","")
-print(directorio_ejemplo)
+directorio_elegido = directorio.replace("directorio=","")
+sha_elegido=sha.replace("sha=","")
+
 #fecha_actual=datetime.now()
 #hora_reiniciar=fecha_actual.strftime("%H")
 
 def main():
-    directorio_listado=os.listdir(directorio_ejemplo)
+    directorio_listado=os.listdir(directorio_elegido)
     for archivo in directorio_listado:
-        hash_value=hashlib.sha256(archivo.encode('utf-8')).hexdigest()
+        dic={"sha224":hashlib.sha224(archivo.encode('utf-8')).hexdigest(),
+        "sha256":hashlib.sha256(archivo.encode('utf-8')).hexdigest(),
+        "sha384":hashlib.sha384(archivo.encode('utf-8')).hexdigest()}
+        hash_value=dic[sha_elegido]
         lista.append(hash_value)
     
     with open("Fichero_conHashes.txt","w") as opfile:
