@@ -8,7 +8,7 @@ with open("Config.config") as configfile:
 
 lista=[]
 directorio_elegido = directorio.replace("directorio=","")
-sha_elegido=sha.replace("sha=","")
+sha_elegido=sha.replace("hash=","")
 
 fecha_actual=datetime.now()
 hora_reiniciar=fecha_actual.strftime("%H")
