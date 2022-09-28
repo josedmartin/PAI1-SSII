@@ -5,13 +5,13 @@ from datetime import datetime
 with open("Config.config") as configfile:
     directorio=configfile.readline().rstrip()
     sha=configfile.readlines()[0].rstrip()
+    hora=configfile.readlines()[1].rstrip()
 
 lista=[]
 directorio_elegido = directorio.replace("directorio=","")
 sha_elegido=sha.replace("hash=","")
+hora_establecida=hora.replace("hora_comprobacion=","")
 
-fecha_actual=datetime.now()
-hora_reiniciar=fecha_actual.strftime("%H")
 
 def main():
     directorio_listado=os.listdir(directorio_elegido)
@@ -39,10 +39,6 @@ def main():
 
 if __name__ == '__main__':
     while True:
-        if hora_reiniciar == '03':
+        if datetime.now().strftime('%X') == hora_establecida:
             main()
-            break
-        else:
-            print("no es la hora")
-            break
-        
+            
