@@ -38,7 +38,11 @@ def main():
         opfile.write("\n".join(lista))
 
 if __name__ == '__main__':
-    if hora_reiniciar == '18':
-        main()
-    else:
-        print("no es la hora")
+    while True:
+        if hora_reiniciar == '03':
+            main()
+            break
+        else:
+            print("no es la hora")
+            break
+        
