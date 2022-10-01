@@ -36,7 +36,7 @@ def crear_dic_temporal():
     directorio_listado = os.listdir(directorio_elegido)
     for archivo in directorio_listado:
         with open("PAI1/Carpeta_Para_Hashear/"+archivo,'r') as f:
-            contenido=f.readline().rstrip()
+            contenido=f.read().rstrip()
         if sha_elegido== 'sha224':
             dic_temporal[archivo]=hashlib.sha224(contenido.encode('utf-8')).hexdigest()
         elif sha_elegido== 'sha256':
@@ -69,17 +69,38 @@ def compara_dicc():
                 print("Hash mal escrito")
     return lista_para_log
 
-def main():
-
+def main(i,j):
     dic_comparado = compara_dicc()
     print(dic_comparado)
     if dic_comparado != []:
-        with open("Log.txt","a+") as opfile:
-            opfile.write(str(dic_comparado)+'\n')
+        with open("./PAI1/Carpeta_Informes_Logs/Log_Del_Mes_"+str(j)+".txt","a+") as opfile:
+            opfile.write("El dia "+str(i)+": "+str(dic_comparado)+'\n')
         
 if __name__ == '__main__':
-    while True:
-        dic_dinamico=crear_dic_temporal()
-        if datetime.now().strftime('%X') == hora_establecida:
-            main()
-            time.sleep(10)
+
+    j=1
+    while j<12:
+        i=1
+        while i<=31:
+            dic_dinamico=crear_dic_temporal()
+            main(i,j)
+            time.sleep(11)
+            i+=1
+        j+=1
+
+
+# def main():
+#     dic_comparado = compara_dicc()
+#     print(dic_comparado)
+#     if dic_comparado != []:
+#         with open("Log.txt","a+") as opfile:
+#             opfile.write(str(dic_comparado)+'\n')
+# if __name__ == '__main__':
+    # while True:
+    #     dic_dinamico=crear_dic_temporal()
+    #     if datetime.now().strftime('%X') == hora_establecida:
+    #         main()
+    #         time.sleep(10)    
+
+    
+        
