@@ -2,7 +2,7 @@ import hashlib,  os
 from datetime import datetime
 import time
 
-with open("PAI1/Config.config","r") as configfile:
+with open("./Config.config","r") as configfile:
     directorio=configfile.readline().rstrip()
     sha=configfile.readline().rstrip()
     hora=configfile.readline().rstrip()
@@ -20,7 +20,7 @@ def crear_dics_definitivo():
     dic_def384={}
     dic_def512={}
     for archivo in directorio_listado:
-        with open("PAI1/Carpeta_Para_Hashear/"+archivo,'r') as f:
+        with open("./Carpeta_Para_Hashear/"+archivo,'r') as f:
             contenido=f.readline().rstrip()
         dic_def224[archivo]=hashlib.sha224(contenido.encode('utf-8')).hexdigest()
         dic_def256[archivo]=hashlib.sha256(contenido.encode('utf-8')).hexdigest()
@@ -35,7 +35,7 @@ def crear_dic_temporal():
     dic_temporal={}
     directorio_listado = os.listdir(directorio_elegido)
     for archivo in directorio_listado:
-        with open("PAI1/Carpeta_Para_Hashear/"+archivo,'r') as f:
+        with open("./Carpeta_Para_Hashear/"+archivo,'r') as f:
             contenido=f.read().rstrip()
         if sha_elegido== 'sha224':
             dic_temporal[archivo]=hashlib.sha224(contenido.encode('utf-8')).hexdigest()
@@ -73,34 +73,27 @@ def main(i,j):
     dic_comparado = compara_dicc()
     print(dic_comparado)
     if dic_comparado != []:
-        with open("./PAI1/Carpeta_Informes_Logs/Log_Del_Mes_"+str(j)+".txt","a+") as opfile:
+        with open("./Carpeta_Informes_Logs/Log_Del_Mes_"+str(j)+".txt","a+") as opfile:
             opfile.write("El dia "+str(i)+": "+str(dic_comparado)+'\n')
-        
-if __name__ == '__main__':
 
-    j=1
+#Esta funcion es a modo de prueba para poder ver el funcionamiento ya que es cada 10 seg
+if __name__ == '__main__':
+    j=1 
     while j<12:
         i=1
         while i<=31:
             dic_dinamico=crear_dic_temporal()
             main(i,j)
-            time.sleep(11)
+            time.sleep(10)
             i+=1
         j+=1
-
-
-# def main():
-#     dic_comparado = compara_dicc()
-#     print(dic_comparado)
-#     if dic_comparado != []:
-#         with open("Log.txt","a+") as opfile:
-#             opfile.write(str(dic_comparado)+'\n')
-# if __name__ == '__main__':
-    # while True:
-    #     dic_dinamico=crear_dic_temporal()
-    #     if datetime.now().strftime('%X') == hora_establecida:
-    #         main()
-    #         time.sleep(10)    
-
     
-        
+#Esta es la funcion oficial requerida para el cliente
+# if __name__ == '__main__':
+#      while True: 
+#          if datetime.now().strftime('%X') == hora_establecida:   #Establecemos una hora para que ejecute la comprobación
+#             dia_actual = datetime.now().strftime('%e')          #de los ficheros cada dia de cada mes a dicha hora
+#             mes_actual = datetime.now().strftime('%b')          #mientras no sea esa hora el programa está esperando.
+#             dic_dinamico=crear_dic_temporal()                
+#             main(dia_actual,mes_actual)
+#             time.sleep(1)  
